@@ -1,0 +1,32 @@
+= Tracing and Observability with Spring Cloud Sleuth + Grafana
+Mario Gray <mgray@pivotal.io>
+:Author Initials: MVG
+:toc:
+:icons:
+:numbered:
+:website: https://cloud.spring.io/spring-cloud-sleuth/
+
+== Motivation
+Distrubited application debugging has evolved tremendously over the
+past few years. Understanging of common in-flight tracing concerns
+can help discover distributed tracing techniques for our apps.
+In this article I will overview and surface an example of 
+spring-cloud-sleuth - a distributed tracing module for spring-cloud.
+
+=== Take a closer look
+
+Break down what MDC does
+How does SLF4j affect MDC
+how Spring-Cloud-Sleuth Interacts with MDC/slf4j. 
+how SCS interacts with any other tracing framework (is possible)
+Describe output and destination/configuration of zipkin.  throw in 
+dapper,HTrace or other popular tracing too.
+
+=== Observing the cluster
+ 
+How observability affets management, allows us to put performance 
+into context. 
+Describe how to get trace data into Grafana
+
+* Setup the environment using minikube
+
