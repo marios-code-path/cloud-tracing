@@ -15,6 +15,9 @@ spring-cloud-sleuth - a distributed tracing module for spring-cloud.
 
 === Take a closer look
 
+MDC is the basic building block of scalable tracing. Managed Diagnostic Contexzt
+is used to find out when a new thread of context - add thread context too - is 
+activated. We use MDC through the SLF4J-mdc moduyle
 Break down what MDC does
 How does SLF4j affect MDC
 how Spring-Cloud-Sleuth Interacts with MDC/slf4j. 
@@ -25,8 +28,23 @@ dapper,HTrace or other popular tracing too.
 === Observing the cluster
  
 How observability affets management, allows us to put performance 
-into context. 
-Describe how to get trace data into Grafana
+into context.  Describe how to get trace data into Grafana
 
 * Setup the environment using minikube
+
+=== What's in the example
+Ideation: Expose GET http://reverse 
+                -> microservice (reverse.apply)
+                    -> microservice (delay.apply)
+          Expose POST http://names
+                -> microservice (store.apply)
+                    -> microservice (delay.apply)
+          Expose GET http://names
+                -> microservice (get.apply)
+                    -> microservice (delay.apply)
+
+            HTTP 400 - Error state on numbers. 
+            HTTP 500 - larger than 80 characters 500's the service
+
+Test Suite ( functional ) 
 
