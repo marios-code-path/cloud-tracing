@@ -8,10 +8,12 @@ Mario Gray <mgray@pivotal.io>
 
 == Motivation
 Distrubited application debugging has evolved tremendously over the
-past few years. Understanging of common in-flight tracing concerns
-can help discover distributed tracing techniques for our apps.
-In this article I will overview and surface an example of 
-spring-cloud-sleuth - a distributed tracing module for spring-cloud.
+past few years. For example, when an application request is made, 
+the Managed Diagnostic Context can update the state of current execution
+context. This allows for inherent program code tracing without even knowing
+the origin or destination of such service. In this article I will overview 
+and surface an example of spring-cloud-sleuth - a distributed tracing 
+module for spring-cloud.
 
 === Take a closer look
 
