@@ -4,13 +4,19 @@ package mcp.cloudtrace;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
 
-@Data
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
 @NoArgsConstructor
 @AllArgsConstructor
+@Data
+@Entity
 public class Device {
     @Id
-    String id;
+    @GeneratedValue
+    Long id;
+
     String deviceId;
 }

@@ -1,10 +1,9 @@
 package mcp.cloudtrace;
 
-import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
+import java.util.Collection;
 
-interface DeviceRepository extends MongoRepository<Device, String> {
-    String findByDeviceId(String device);
-    List<Device> findAll();
+interface DeviceRepository extends JpaRepository<Device, Long> {
+    Collection<Device> findByName(String dn);
 }

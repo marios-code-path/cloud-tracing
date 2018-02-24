@@ -1,21 +1,23 @@
 package mcp.cloudtrace;
 
+import lombok.extern.java.Log;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController
-
 class SampleRestController {
-    DeviceRepository deviceRepo;
+    private DeviceRepository deviceRepo;
 
-    public void SampleRestController(DeviceRepository ds) {
+    public SampleRestController(DeviceRepository ds) {
         this.deviceRepo = ds;
     }
 
     @GetMapping("/devices")
     public List<Device> deviceNames() {
-        return deviceRepo.findAll();
+       // log.info("Traces in the wind");
+       // log.finest("This is the finest log");
+        return this.deviceRepo.findAll();
     }
 }
