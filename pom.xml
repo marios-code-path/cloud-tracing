@@ -75,6 +75,16 @@
 			<artifactId>brave-instrumentation-spring-web</artifactId>
 			<version>${brave.version}</version>
 		</dependency>
+
+
+		<!-- slf4j -->
+		<dependency>
+			<groupId>io.zipkin.brave</groupId>
+			<artifactId>brave-context-slf4j</artifactId>
+			<version>${brave.version}</version>
+		</dependency>
+
+		<!-- ues log4j -->
 		<dependency>
 			<groupId>io.zipkin.brave</groupId>
 			<artifactId>brave-context-log4j2</artifactId>

@@ -3,6 +3,7 @@ package mcp.cloudtrace;
 import lombok.extern.java.Log;
 import org.slf4j.MDC;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
@@ -22,17 +23,15 @@ class SampleRestController {
 
 
     @GetMapping("/devices")
-    public List<Device> deviceNames() {
+    public List<Device> deviceNames(@RequestHeader(name = "user-name", required = false) String username) {
         log.info("FYI: Hermia");
-        if (MDC.getCopyOfContextMap() != null)
-            for (String s : MDC.getCopyOfContextMap().keySet()) {
-                log.info("MDC: " + s);
-            }
+        log.info("name: " + username);
         return this.deviceRepo.findAll();
     }
 
     @GetMapping("/front")
-    public String callDevices() {
+    public String callDevices(@RequestHeader(name = "user-name", required = false) String username) {
+        log.info("Username: " + username);
         return restTemplate.getForObject("http://localhost:8080/devices", String.class);
     }
 }

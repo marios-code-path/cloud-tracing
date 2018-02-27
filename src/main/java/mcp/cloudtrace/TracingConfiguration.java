@@ -1,16 +1,13 @@
 package mcp.cloudtrace;
 
 import brave.Tracing;
-import brave.context.log4j2.ThreadContextCurrentTraceContext;
-import brave.http.HttpAdapter;
-import brave.http.HttpSampler;
+import brave.context.slf4j.MDCCurrentTraceContext;
 import brave.http.HttpTracing;
 import brave.propagation.B3Propagation;
 import brave.propagation.ExtraFieldPropagation;
 import brave.sampler.Sampler;
 import brave.spring.web.TracingClientHttpRequestInterceptor;
 import brave.spring.webmvc.TracingHandlerInterceptor;
-import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -18,7 +15,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import zipkin2.Span;
@@ -64,7 +60,10 @@ class TracingConfiguration extends WebMvcConfigurerAdapter {
                 .sampler(Sampler.ALWAYS_SAMPLE)
                 .localServiceName(serviceName)
                 .propagationFactory(ExtraFieldPropagation.newFactory(B3Propagation.FACTORY, "user-name"))
-                .currentTraceContext(ThreadContextCurrentTraceContext.create()) // puts trace IDs into logs
+                // puts trace IDs into logs
+                //.currentTraceContext(ThreadContextCurrentTraceContext.create())
+                // modifies MDC via slf4j binding
+                .currentTraceContext(MDCCurrentTraceContext.create())
                 .spanReporter(spanReporter()).build();
     }
 
