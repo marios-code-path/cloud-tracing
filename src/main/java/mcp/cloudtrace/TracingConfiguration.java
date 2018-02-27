@@ -59,10 +59,11 @@ class TracingConfiguration extends WebMvcConfigurerAdapter {
         return Tracing.newBuilder()
                 .sampler(Sampler.ALWAYS_SAMPLE)
                 .localServiceName(serviceName)
-                .propagationFactory(ExtraFieldPropagation.newFactory(B3Propagation.FACTORY, "user-name"))
+                .propagationFactory(ExtraFieldPropagation
+                        .newFactory(B3Propagation.FACTORY, "client-id"))
                 // puts trace IDs into logs
                 //.currentTraceContext(ThreadContextCurrentTraceContext.create())
-                // modifies MDC via slf4j binding
+                // subclassed to enable MDC synchronizing
                 .currentTraceContext(MDCCurrentTraceContext.create())
                 .spanReporter(spanReporter()).build();
     }

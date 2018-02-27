@@ -1,38 +1,38 @@
 package mcp.cloudtrace;
 
-import lombok.extern.java.Log;
-import org.slf4j.MDC;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
-@Log
 class SampleRestController {
-    private final DeviceRepository deviceRepo;
+    private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(SampleRestController.class);
+
+    private final ClientRepository clientRepo;
     private final RestTemplate restTemplate;
 
-    public SampleRestController(DeviceRepository ds,
+    public SampleRestController(ClientRepository ds,
                                 RestTemplate rt) {
-        this.deviceRepo = ds;
+        this.clientRepo = ds;
         this.restTemplate = rt;
     }
 
+    @GetMapping("/clients")
+    public List<Client> deviceNames(HttpServletRequest req) {
+        String clientId = req.getHeader("client-id");
 
-    @GetMapping("/devices")
-    public List<Device> deviceNames(@RequestHeader(name = "user-name", required = false) String username) {
-        log.info("FYI: Hermia");
-        log.info("name: " + username);
-        return this.deviceRepo.findAll();
+        log.info("FYI: client-id = " + clientId);
+        return this.clientRepo.findAll();
     }
 
     @GetMapping("/front")
-    public String callDevices(@RequestHeader(name = "user-name", required = false) String username) {
-        log.info("Username: " + username);
-        return restTemplate.getForObject("http://localhost:8080/devices", String.class);
+    public String callClientList() {
+
+        return restTemplate.getForObject("http://localhost:8080/clients", String.class);
+
     }
 }
 

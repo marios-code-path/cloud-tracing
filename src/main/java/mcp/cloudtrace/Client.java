@@ -13,10 +13,10 @@ import javax.persistence.Id;
 @AllArgsConstructor
 @Data
 @Entity
-public class Device {
+public class Client {
     @Id
     @GeneratedValue
     Long id;
 
-    String deviceId;
+    String clientId;
 }

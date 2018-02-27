@@ -25,20 +25,22 @@ public class CloudTraceApplicationTest {
     private MockMvc mockMvc;
 
     @MockBean
-    private DeviceRepository deviceRepository;
+    private ClientRepository deviceRepository;
 
     @Test
     public void testShouldFindAllDevices() throws Exception {
         Mockito.when(deviceRepository.findAll())
                 .thenReturn(
                         Arrays.asList(
-                                new Device(1L, "IOS"),
-                                new Device(2L, "Android")
+                                new Client(1L, "IOS"),
+                                new Client(2L, "Android"),
+                                new Client(3L, "WEB")
 
                         )
                 );
 
-        mockMvc.perform(get("/devices"))
+        mockMvc.perform(get("/clients")
+                .header("client-id", "Android"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
                 .andExpect(jsonPath("@.[0].id").isNotEmpty());
